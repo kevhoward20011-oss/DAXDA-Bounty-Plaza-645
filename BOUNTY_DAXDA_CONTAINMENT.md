@@ -145,6 +145,19 @@ daxda_guard/containment/
 | Test Coverage | > 95% | Of escape categories |
 | Alert Correlation | > 90% | Accuracy rate |
 
+### DAXDA System Interconnection
+
+This subsystem is one of the five Level 1 DAXDA subsystems defined in the meta-bounty (Esoteric Domains). The relationships below are requirements for the implementation commissioned by this bounty. They do not describe integrations that exist today.
+
+| Related bounty | Status | Relationship |
+|----------------|--------|--------------|
+| `BOUNTY_DAXDA_CLENGINE.md` (Cl(16,4) Hypercombinatorial Governance Engine) | REQUIRED | Escape-scenario constraints are expressed against the Cl(16,4) combinatorial space. HyperValidator's signed validation certificates are the evidence recorded by `validation/integrity_checker.py` and `validation/audit_trail.py`. Output of this bounty: 100+ escape test cases with per-case validity verdicts. |
+| `BOUNTY_DAXDA_SYNCHRONICITY.md` (Chrono-Synchronicity) | REQUIRED (narrow scope) | The `temporal_anomalies/` and `causal_manipulation/` escape categories defined above need a temporal oracle: `paradox_detector.py` and `coherence_checker.py` supply the expected verdict those specific test cases are graded against. No other escape category depends on Chrono-Synchronicity. |
+| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | OPTIONAL / FUTURE | Cluster-backed distributed containment monitoring is listed in this bounty's own Recursive Expansion as a Level 1 sub-bounty, so it is deliberately out of scope here. This bounty must run in isolated single-node sandboxes as its Constraints require. |
+| `BOUNTY_DAXDA_PENETRATION.md` (MMPIBench) | OPTIONAL | Memetic injection findings from that bounty's `injection_detector.py` may be used to prioritise the `prompt_injection/` category. Not required for this bounty to be considered complete. |
+
+REQUIRED means this bounty is not complete without the relationship. OPTIONAL / FUTURE means the capability is anticipated but explicitly out of scope here.
+
 ## 📋 Required Deliverables
 
 1. **Source Code**: Complete implementation in Python 3.11+

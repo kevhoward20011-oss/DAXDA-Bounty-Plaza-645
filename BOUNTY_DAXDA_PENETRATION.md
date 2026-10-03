@@ -150,6 +150,19 @@ The MMPIBench implementation must satisfy:
 - **Reliability**: Consistent results across multiple evaluations
 - **Objectivity**: Results are not influenced by evaluator biases
 
+### DAXDA System Interconnection
+
+This subsystem is one of the five Level 1 DAXDA subsystems defined in the meta-bounty (Esoteric Domains). The relationships below are requirements for the implementation commissioned by this bounty. They do not describe integrations that exist today.
+
+| Related bounty | Status | Relationship |
+|----------------|--------|--------------|
+| `BOUNTY_DAXDA_CONTAINMENT.md` (Anomalous Containment Wing) | REQUIRED | `integration/monitoring.py`, already declared above as agent monitoring integration, binds to that bounty's `monitoring/agent_monitor.py`; `integration/guard_hooks.py` carries `injection_detector.py` findings into its escape-test pipeline. Output of this bounty: alignment scores and penetration-depth metrics supplied as containment evidence. |
+| `BOUNTY_DAXDA_SYNCHRONICITY.md` (Chrono-Synchronicity) | OPTIONAL | `penetration/temporal_tracker.py` measures memetic influence across time. That subsystem MAY validate the temporal consistency of the resulting track, but no Chrono-Synchronicity component is required to complete this bounty. |
+| `BOUNTY_DAXDA_CLENGINE.md` (Cl(16,4) Hypercombinatorial Governance Engine) | OPTIONAL | Alignment scores are not required as Cl(16,4) constraint dimensions by this bounty. Consuming them as governance constraints is anticipated as a Level 1 sub-bounty only. |
+| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | OPTIONAL | `EmpiricalValidator` cross-validation is compute-heavy and could be offloaded to the cluster, but this bounty does not require it, and the evaluation latency target above is stated for a single evaluation path. |
+
+REQUIRED means this bounty is not complete without the relationship. OPTIONAL means the capability may be implemented but is not a completion requirement for this bounty.
+
 ## 📋 Required Deliverables
 
 1. **Source Code**: Complete implementation in Python 3.11+

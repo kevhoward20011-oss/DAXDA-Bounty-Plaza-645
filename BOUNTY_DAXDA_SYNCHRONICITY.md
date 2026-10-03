@@ -147,6 +147,19 @@ The geometric retrocausality implementation must satisfy:
 - **Efficiency**: All operations scale as O(log n) or better
 - **Determinism**: Same temporal state always produces same results
 
+### DAXDA System Interconnection
+
+This subsystem is one of the five Level 1 DAXDA subsystems defined in the meta-bounty (Esoteric Domains). The relationships below are requirements for the implementation commissioned by this bounty. They do not describe integrations that exist today.
+
+| Related bounty | Status | Relationship |
+|----------------|--------|--------------|
+| `BOUNTY_DAXDA_CLENGINE.md` (Cl(16,4) Hypercombinatorial Governance Engine) | REQUIRED | Implemented by `integration/cl16_4_integration.py`, already declared in the architecture above. Bidirectional: the Cl(16,4) engine supplies point-in-time combinatorial coordinates and constraint satisfaction; this bounty supplies temporal consistency and paradox detection over those coordinates. |
+| `BOUNTY_DAXDA_CONTAINMENT.md` (Anomalous Containment Wing) | REQUIRED (narrow scope) | `integration/anomaly_integration.py`, already declared above, publishes paradox and coherence verdicts to that bounty's `temporal_anomalies/` and `causal_manipulation/` escape categories, which use this bounty's `paradox_detector.py` and `coherence_checker.py` as their expected result. No other escape category depends on this subsystem. |
+| `BOUNTY_DAXDA_PENETRATION.md` (MMPIBench) | OPTIONAL | That bounty's `penetration/temporal_tracker.py` produces a time-indexed track of memetic influence. This subsystem MAY validate the temporal consistency of that track, but MMPIBench is not a required input to this bounty. |
+| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | OPTIONAL | The performance metrics above are stated for a single process, so cluster execution is not required. Offloading is anticipated as a Level 1 sub-bounty only. |
+
+REQUIRED means this bounty is not complete without the relationship. OPTIONAL means the capability may be implemented but is not a completion requirement for this bounty.
+
 ## 📋 Required Deliverables
 
 1. **Source Code**: Complete implementation in Python 3.11+

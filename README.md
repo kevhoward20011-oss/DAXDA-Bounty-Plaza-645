@@ -12,21 +12,22 @@ This contribution adds and repairs the packaging and verification layer:
 
 | Path | State | Origin |
 |---|---|---|
-| `BOUNTY_DAXDA_CLENGINE.md` | pre-existing; 4 published structural sections added | `c6ce3fa` + this contribution |
-| `BOUNTY_DAXDA_CONTAINMENT.md` | pre-existing; 4 published structural sections added | `c6ce3fa` + this contribution |
-| `BOUNTY_DAXDA_VALIDATOR.md` | pre-existing; 4 published structural sections added | `c6ce3fa` + this contribution |
-| `BOUNTY_DAXDA_SYNCHRONICITY.md` | pre-existing; 4 published structural sections added | `c6ce3fa` + this contribution |
-| `BOUNTY_DAXDA_PENETRATION.md` | pre-existing; 4 published structural sections added | `c6ce3fa` + this contribution |
+| `BOUNTY_DAXDA_CLENGINE.md` | pre-existing; 4 structural sections + interconnection table added | `c6ce3fa` + this contribution |
+| `BOUNTY_DAXDA_CONTAINMENT.md` | pre-existing; 4 structural sections + interconnection table added | `c6ce3fa` + this contribution |
+| `BOUNTY_DAXDA_VALIDATOR.md` | pre-existing; 4 structural sections + interconnection table added | `c6ce3fa` + this contribution |
+| `BOUNTY_DAXDA_SYNCHRONICITY.md` | pre-existing; 4 structural sections + interconnection table added | `c6ce3fa` + this contribution |
+| `BOUNTY_DAXDA_PENETRATION.md` | pre-existing; 4 structural sections + interconnection table added | `c6ce3fa` + this contribution |
 | `BOUNTY_DAXDA_META_RECURSIVE.md` | pre-existing, **unmodified** | `c6ce3fa` |
 | `validation/validate_bounties.py` | **added** | this contribution |
-| `interconnection_map.md` | **added**, validator reference corrected | this contribution |
+| `interconnection_map.md` | **added**, then reconciled to the declared relationships | this contribution |
+| `daxda-meta-bounty-submission.zip` | **added** | this contribution |
 | `README.md` | **rewritten** to match measured results | this contribution |
 
 ### What was changed inside the five core bounty documents
 
-Only the four structural sections that the validator measured as missing were
-touched. No technical content, reward figure, milestone, deadline, tag,
-evaluation weight, or submission path was altered.
+Two classes of change only. No technical architecture, reward figure, milestone,
+deadline, tag, evaluation weight, acceptance criterion, or submission path was
+altered, and no integration was claimed to already exist.
 
 | Change | Detail |
 |---|---|
@@ -34,13 +35,11 @@ evaluation weight, or submission path was altered.
 | Header rename | `## 📞 Contact` → `## 📞 Contact & Questions` (text untouched) |
 | Section added | `## 🎯 Target Audience`, 3 bullets, drawn from the meta-bounty's own audience list (`META:140-144`) matched to each subsystem |
 | Section added | `## 📜 License & Rights`, wording follows `META:187`, pointing back to each document's existing MIT/Apache 2.0 constraint |
+| Subsection added | `### DAXDA System Interconnection` inside `## 📋 Technical Specification`, declaring each peer bounty with REQUIRED or OPTIONAL status and the actual data flow |
 
-Measured effect: structural fidelity rose from 71.4% to 100.0% against the
-14-section template, clearing the > 95% threshold at `META:52`.
-
-Scope of this contribution: a real structural validator, completion of the
-missing published structural sections, and correction of the package
-documentation so that it no longer makes claims that cannot be substantiated.
+Each interconnection subsection opens by stating that the relationships are
+requirements for future implementation, not descriptions of existing
+integrations. The subsections use `###` so the `##` section set is untouched.
 
 ## Submission Package Overview
 
@@ -53,7 +52,7 @@ The required deliverables at `BOUNTY_DAXDA_META_RECURSIVE.md:80-90` are:
 1. Five Markdown files named `BOUNTY_DAXDA_[SUBSYSTEM_NAME].md` — **present** (5 of 5)
 2. Validation script verifying structure and content — **present** (`validation/validate_bounties.py`)
 3. Interconnection map — **present** (`interconnection_map.md`)
-4. Submission package as a compressed archive — **NOT present** (no archive in the package root)
+4. Submission package as a compressed archive — **present** (`daxda-meta-bounty-submission.zip`, 9 entries, 45,812 bytes)
 
 ### Reward figures appearing in the documents
 
@@ -110,10 +109,10 @@ was invented.
 ```
 python validation/validate_bounties.py
 
-Graded checks : 37
-Passed        : 37
+Graded checks : 38
+Passed        : 38
 Failed        : 0
-Warnings      : 1  (C9, reported but not graded in normal mode)
+Warnings      : 0
 Files PASS    : 5
 Files FAIL    : 0
 Exit code     : 0
@@ -122,50 +121,49 @@ Exit code     : 0
 ```
 python validation/validate_bounties.py --strict-archive
 
-Graded checks : 38   (C9 promoted from warning to graded check)
-Passed        : 37
-Failed        : 1    (C9)
+Graded checks : 38
+Passed        : 38
+Failed        : 0
 Files PASS    : 5
 Files FAIL    : 0
-Exit code     : 1
+Exit code     : 0
 ```
 
-**Structural validation passes in normal mode.** Every objectively measurable
-structural requirement is met. The one outstanding published deliverable is the
-compressed archive (`META:90`), which `--strict-archive` correctly reports as a
-failure because it is absent.
+**Structural validation passes in both modes.** All 38 objectively measurable
+published requirements are met, including the `META:90` archive, which is now
+present and therefore graded as a PASS rather than a warning.
 
-### C9: submission archive
-
-`META:90` requires "A compressed archive containing all five bounties, the
-validation script, the interconnection map, and a README". No `.zip` exists in
-the package root. In normal mode this is reported as `WARN` so it stays visible
-without being counted as a structural failure; under `--strict-archive` it is a
-graded `FAIL` and forces exit code 1, which is the correct reading when
-packaging is actually being submitted.
-
-### Line counts after the repair
-
-All above the 150-line minimum at `META:131`: CLENGINE 194, CONTAINMENT 236,
-VALIDATOR 254, SYNCHRONICITY 237, PENETRATION 243.
+Structural fidelity is 100.0% against the 14-section template for all five
+documents, clearing the > 95% threshold at `META:52`. Line counts after both
+rounds of repair: CLENGINE 207, CONTAINMENT 249, VALIDATOR 267,
+SYNCHRONICITY 250, PENETRATION 256 — all above the 150-line minimum at
+`META:131`.
 
 ### Informational, not graded
 
-The validator reports, but does not grade, the cross-reference matrix required
-by `META:55` ("All five bounties must reference each other where appropriate"):
+The validator reports, but does not grade, the declared relationships required
+by `META:55` ("All five bounties must reference each other where appropriate").
+It reads each document's `### DAXDA System Interconnection` table:
 
-| Document | Names of the other four |
-|---|---|
-| `BOUNTY_DAXDA_CLENGINE.md` | 0 / 4 |
-| `BOUNTY_DAXDA_CONTAINMENT.md` | 0 / 4 |
-| `BOUNTY_DAXDA_VALIDATOR.md` | 0 / 4 |
-| `BOUNTY_DAXDA_SYNCHRONICITY.md` | 0 / 4 |
-| `BOUNTY_DAXDA_PENETRATION.md` | 0 / 4 |
+| Document | Peers declared | REQUIRED | OPTIONAL |
+|---|---|---|---|
+| `BOUNTY_DAXDA_CLENGINE.md` | 4 / 4 | 3 | 1 |
+| `BOUNTY_DAXDA_CONTAINMENT.md` | 4 / 4 | 2 | 2 |
+| `BOUNTY_DAXDA_VALIDATOR.md` | 4 / 4 | 1 | 3 |
+| `BOUNTY_DAXDA_SYNCHRONICITY.md` | 4 / 4 | 2 | 2 |
+| `BOUNTY_DAXDA_PENETRATION.md` | 4 / 4 | 1 | 3 |
 
-No core bounty document names another by filename. Two documents do reference a
-sibling concept in prose (`SYNCHRONICITY` refers to the Cl(16,4) engine), but
-the published criterion is not machine-decidable because "where appropriate" is
-a judgement, so this is left ungraded rather than scored on a proxy.
+Nine directed REQUIRED declarations in total. The matrix is reported without any
+threshold, because `META:55` qualifies the requirement with "where appropriate",
+which is a judgement. Detection confirms that a relationship is **declared and
+specific**; it cannot confirm the relationship is **correct**. Whether these
+edges are appropriate is assessed by human review under Cohesion (10%) and
+Structural Fidelity (40%).
+
+Earlier revisions of this package reported 0/4 for every document: no bounty
+named any peer, while `interconnection_map.md` nonetheless asserted a
+dependency graph. That map has now been reconciled to what the documents
+actually declare.
 
 ### Not automated at all
 
@@ -185,15 +183,17 @@ only part of that rubric.
 
 ## Validation Limitations
 
-1. **Structural validation only.** The run above exits 0 with 37 of 37 graded checks passing, and exits 1 under `--strict-archive` solely because the `META:90` archive is absent. No passing *review* result is claimed.
-2. **A structural pass is not an acceptance.** The rubric at `META:96-102` weights Structural Fidelity 40%, Technical Depth 30%, Recursive Potential 20% and Cohesion 10%. This validator speaks only to the first category, and only to its structural component. 60% of the rubric is untouched by it.
-3. **Several published requirements cannot be automated** and remain unverified: Content Originality (`META:53`), Interconnection Density (`META:55`), tone (`META:46`, `:134`), and the verbatim foundation (`META:29`, `:130`).
-4. **Verbatim foundation is unverifiable here.** `META:29` requires the base description of the original DAXDA Next-Gen Governance Engine bounty to be copied verbatim up to the Objective section. That source bounty is not present in this repository, so this requirement has not been checked at any point and cannot be.
-5. **Cross-references remain absent.** The measured matrix is 0/4 for every document: no core bounty names another by filename. `META:55` asks for interconnection "where appropriate"; because that phrase is a judgement, the validator reports rather than grades it. The dependency claims in `interconnection_map.md` are therefore unverified design intent, as noted in that file.
-6. **Encoding note for future validators.** The bounty documents are UTF-8 without BOM and contain emoji in section headers. This environment runs PowerShell 5.1 on console code page 850 (locale cp1252), which cannot encode those characters, so a naive script raising `UnicodeEncodeError` would be an environment artefact rather than a defect in the documents. `validation/validate_bounties.py` avoids this by reading UTF-8 explicitly and forcing ASCII-safe output.
-7. **No dependency blocker.** Python 3.12.10 is present and functional; the validator requires no third-party package.
-8. **Section order differs from the template.** Section *membership* now matches all 14 template sections, but `Constraints & Requirements` still appears before `Recursive Expansion`, whereas the template places it after. The published criterion at `META:132` refers to "the exact same markdown formatting and section structure"; reordering was not performed because it would mean rewriting sections that already pass. This is a residual judgement risk for reviewers.
-9. **Scope.** The validator measures structure and declared content only. It cannot and does not assess correctness, novelty, feasibility, or quality of the five bounty documents.
+1. **Structural validation only.** Both modes exit 0 with 38 of 38 graded checks passing. No passing *review* result is claimed.
+2. **A structural pass is not an acceptance.** The rubric at `META:96-102` weights Structural Fidelity 40%, Technical Depth 30%, Recursive Potential 20% and Cohesion 10%. The validator speaks only to structure, filename, length, metadata, declared categories and archive presence. **60% of the rubric by weight is untouched by it**, and 40% is only partly covered.
+3. **Published requirements that cannot be automated** remain unverified: Content Originality (`META:53`), Interconnection Density (`META:55`), tone (`META:46`, `:134`), and the verbatim foundation (`META:29`, `:130`).
+4. **Verbatim foundation is unverifiable here.** `META:29` requires the base description of the original DAXDA Next-Gen Governance Engine bounty to be copied verbatim up to the Objective section. That source bounty is not present in this repository, so this requirement has not been checked at any point and cannot be. It carries a 40%-weighted Structural Fidelity exposure.
+5. **Declared interconnection is not validated interconnection.** Each bounty now names all four peers with a specific data flow and a REQUIRED/OPTIONAL status. These are **requirements for future implementation**; no integration exists today, and nothing in this package was executed or tested. The validator confirms the declarations are present and well-formed, not that they are appropriate or correct.
+6. **The interconnection graph is asymmetric on purpose.** Only 9 of 20 possible directed edges are REQUIRED. DA13 and MMPIBench each have exactly one required peer, so a reviewer may judge the package insufficiently cohesive despite the 4/4 declaration count — declaration coverage is not the same as coupling strength.
+7. **Encoding note.** The bounty documents are UTF-8 without BOM and contain emoji in section headers. This environment runs PowerShell 5.1 on console code page 850 (locale cp1252), which cannot encode those characters, so a naive script raising `UnicodeEncodeError` would be an environment artefact rather than a defect in the documents. `validation/validate_bounties.py` avoids this by reading UTF-8 explicitly and forcing ASCII-safe output.
+8. **No dependency blocker.** Python 3.12.10 is present and functional; the validator requires no third-party package.
+9. **Section order differs from the template.** Section *membership* matches all 14 template sections, but `Constraints & Requirements` still appears before `Recursive Expansion`, whereas the template places it after. `META:132` refers to "the exact same markdown formatting and section structure". Reordering was not performed because it would mean rewriting sections that already pass. The validator scores membership, not order, so this gap is invisible to it and remains a reviewer judgement.
+10. **Archive layout differs from the template.** `META:150-163` specifies `bounties/` and `docs/` subdirectories. `daxda-meta-bounty-submission.zip` stores the five bounties at the archive root and `validation/validate_bounties.py` under `validation/`. The validator checks only that an archive exists, not its internal layout, so this deviation is also invisible to it.
+11. **Scope.** The validator measures structure and declared content only. It cannot and does not assess correctness, novelty, feasibility, or quality of the five bounty documents.
 
 ## File Structure
 
@@ -210,22 +210,26 @@ bounty-daxda-25000-spec/
 ├── interconnection_map.md            (added)
 ├── validation/
 │   └── validate_bounties.py          (added)
+├── daxda-meta-bounty-submission.zip   (added; 9 entries)
 └── README.md                         (rewritten)
 ```
 
 The published submission format at `META:150-163` additionally specifies
-`bounties/` and `docs/` subdirectories and the filename
-`validation/validate_bounties.py`. The validator filename now matches. The
-directory layout does not, and no archive has been assembled.
+`bounties/` and `docs/` subdirectories. The validator filename matches; the
+directory layout does not, and the validator does not inspect archive layout.
 
 ## Notes
 
-Structural validation now passes: 37 of 37 graded checks, exit code 0, with the
-`META:90` archive outstanding and reported as a warning. A large part of the
-published rubric cannot be checked by any script and remains unverified, and
-the section-ordering difference noted above is a live judgement risk.
+Structural validation passes in both normal and `--strict-archive` mode: 38 of
+38 graded checks, exit code 0. All five bounty documents now declare their
+relationships with the other four subsystems, distinguishing REQUIRED from
+OPTIONAL, and `interconnection_map.md` has been reconciled to those declarations.
 
-Nothing here states or implies that the bounty has been won, accepted,
-approved, funded, guaranteed, or approved for payment. A passing structural
-check is a self-assessment, not a decision. Payout under `META:16-21` is
-milestone-based and contingent on review by the DAXDA Opire Singularity Council.
+That is a statement about internal consistency and structure only. Most of the
+published rubric is still unassessed, the verbatim-foundation requirement cannot
+be checked in this repository at all, and the declared interconnections describe
+work that has not been implemented. Nothing here states or implies that the
+bounty has been won, accepted, approved, funded, guaranteed, or approved for
+payment. A passing structural check is a self-assessment, not a decision. Payout
+under `META:16-21` is milestone-based and contingent on review by the DAXDA
+Opire Singularity Council.

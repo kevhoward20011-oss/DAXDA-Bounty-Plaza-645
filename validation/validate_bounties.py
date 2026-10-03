@@ -80,6 +80,27 @@ CORE_BOUNTIES = [
 INTERCONNECTION_MAP = "interconnection_map.md"
 ARCHIVE_EXTENSIONS = (".zip",)
 
+#: Unambiguous subsystem names for each core bounty. Used only to recognise a
+#: declared interconnection row; never used to infer that an integration
+#: exists. Matching is exact-substring on the row text.
+SUBSYSTEM_ALIASES = {
+    "BOUNTY_DAXDA_CLENGINE.md": (
+        "Cl(16,4) Hypercombinatorial Governance Engine",
+    ),
+    "BOUNTY_DAXDA_CONTAINMENT.md": (
+        "Anomalous Containment Wing",
+    ),
+    "BOUNTY_DAXDA_VALIDATOR.md": (
+        "DA13 Distributed GPU Validator Cluster",
+    ),
+    "BOUNTY_DAXDA_SYNCHRONICITY.md": (
+        "Chrono-Synchronicity",
+    ),
+    "BOUNTY_DAXDA_PENETRATION.md": (
+        "MMPIBench",
+    ),
+}
+
 MIN_LINES = 150            # META:131
 FIDELITY_THRESHOLD = 95.0  # META:52  (> 95% match)
 MIN_SUB_BOUNTIES = 3       # META:54  (at least 3 sub-bounty opportunities)
@@ -238,28 +259,85 @@ def count_sub_bounty_opportunities(text):
     return count, None
 
 
+def interconnection_section(text):
+    """Return the body of the 'DAXDA System Interconnection' subsection.
+
+    Returns None when the subsection is absent, so that a document can be
+    distinguished as having no declared relationships at all.
+    """
+    lines = text.splitlines()
+    start = None
+    for index, line in enumerate(lines):
+        if line.startswith("### ") and "interconnection" in line.lower():
+            start = index + 1
+            break
+    if start is None:
+        return None
+    body = []
+    for line in lines[start:]:
+        if line.startswith("## ") or line.startswith("### "):
+            break
+        body.append(line)
+    return "\n".join(body)
+
+
 def count_cross_references(texts):
-    """Count how many of the other four core bounties each document names.
+    """Describe how each document references the other four core bounties.
 
     Reported as information only. META:55 requires interconnection
-    "where appropriate", which is a judgement call and is therefore not
-    graded by this script.
+    "where appropriate", which is a judgement call, so this function
+    deliberately produces NO pass/fail threshold. It reports, per ordered
+    pair: whether the peer bounty is named by filename, whether it is named
+    by subsystem concept, how many times it is named, and whether the
+    document marks the relationship REQUIRED or OPTIONAL.
+
+    A relationship is attributed to a peer only when the filename or one of
+    the peer's unambiguous subsystem names occurs inside an interconnection
+    table row, so that passing prose mentions elsewhere in the document are
+    not silently counted as declared integration.
     """
     matrix = {}
     for name in CORE_BOUNTIES:
         text = texts.get(name)
         if text is None:
             continue
-        haystack = " ".join(
-            token for token in CORE_BOUNTIES if token != name
-        )
-        named = [other for other in CORE_BOUNTIES if other != name and other in text]
+        body = interconnection_section(text)
+        rows = []
+        if body:
+            for line in body.splitlines():
+                stripped = line.strip()
+                if not stripped.startswith("|"):
+                    continue
+                for other in CORE_BOUNTIES:
+                    if other == name:
+                        continue
+                    aliases = [other] + list(SUBSYSTEM_ALIASES.get(other, ()))
+                    hits = [a for a in aliases if a in stripped]
+                    if not hits:
+                        continue
+                    upper = stripped.upper()
+                    if "REQUIRED" in upper and "OPTIONAL" not in upper:
+                        status = "REQUIRED"
+                    elif "OPTIONAL" in upper:
+                        status = "OPTIONAL"
+                    else:
+                        status = "unstated"
+                    rows.append({
+                        "peer": other,
+                        "matched": hits[0],
+                        "status": status,
+                    })
+                    break
+        named = sorted({row["peer"] for row in rows})
+        required = sorted({row["peer"] for row in rows if row["status"] == "REQUIRED"})
         matrix[name] = {
+            "rows": rows,
             "named": named,
             "count": len(named),
-            "haystack_size": len([o for o in CORE_BOUNTIES if o != name]),
+            "required": required,
+            "peers": len(CORE_BOUNTIES) - 1,
+            "has_section": body is not None,
         }
-        del haystack
     return matrix
 
 
@@ -563,17 +641,36 @@ def main(argv=None):
 
     print_results(results)
 
-    out("INFORMATIONAL: cross-reference matrix (META:55, not graded)")
+    out("INFORMATIONAL: cross-reference matrix (META:55, NOT graded)")
     rule()
+    out("  Reports declared relationships only. META:55 says 'where")
+    out("  appropriate', which is a judgement, so no threshold is applied and")
+    out("  no PASS/FAIL is derived from this table.")
+    out("")
     matrix = count_cross_references(texts)
+    short = lambda n: n.replace("BOUNTY_DAXDA_", "").replace(".md", "")
+    out("  %-16s %-7s %s" % ("document", "peers", "declared relationships (status)"))
     for name in CORE_BOUNTIES:
         info = matrix.get(name)
         if not info:
             continue
-        named = ", ".join(n.replace("BOUNTY_DAXDA_", "").replace(".md", "")
-                          for n in info["named"]) or "none"
-        out("  %-34s %d/4  %s"
-            % (name.replace("BOUNTY_DAXDA_", ""), info["count"], named))
+        if not info["has_section"]:
+            out("  %-16s %-7s no interconnection subsection found"
+                % (short(name), "-"))
+            continue
+        entries = ["%s [%s]" % (short(row["peer"]), row["status"])
+                   for row in info["rows"]]
+        out("  %-16s %d/%-5d %s"
+            % (short(name), info["count"], info["peers"], ", ".join(entries)))
+    out("")
+    for name in CORE_BOUNTIES:
+        info = matrix.get(name)
+        if not info or not info["has_section"]:
+            continue
+        out("  %-16s REQUIRED: %d   OPTIONAL: %d"
+            % (short(name),
+               sum(1 for r in info["rows"] if r["status"] == "REQUIRED"),
+               sum(1 for r in info["rows"] if r["status"] == "OPTIONAL")))
     out("")
 
     package_checks, _archives, package_warnings = validate_package(

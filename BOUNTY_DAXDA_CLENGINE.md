@@ -108,6 +108,19 @@ The Cl(16,4) space must satisfy:
 | Constraint satisfaction | < 50ms | Average case |
 | Parallel efficiency | > 80% | 8-core system |
 
+### DAXDA System Interconnection
+
+This subsystem is one of the five Level 1 DAXDA subsystems defined in the meta-bounty (Esoteric Domains). The relationships below are requirements for the implementation commissioned by this bounty. They do not describe integrations that exist today.
+
+| Related bounty | Status | Relationship |
+|----------------|--------|--------------|
+| `BOUNTY_DAXDA_SYNCHRONICITY.md` (Chrono-Synchronicity) | REQUIRED | Implemented by `integration/cl16_4_integration.py`, already declared in the architecture above. Bidirectional: this engine supplies point-in-time Cl(16,4) coordinates and constraint satisfaction; Chrono-Synchronicity supplies temporal consistency and paradox verdicts for those coordinates. |
+| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | REQUIRED | Execution substrate. HyperValidator defines the unit of work and emits signed certificates; DA13 `ValidationWorker` and `ResultAggregator` execute that work across the cluster to reach the 10,000 validations/sec and sub-second latency targets stated above. Input: validation job payload plus GPU cluster. Output: validation certificates. |
+| `BOUNTY_DAXDA_CONTAINMENT.md` (Anomalous Containment Wing) | REQUIRED | Input: threat level produced by `ContainmentMonitor` / `anomaly_detector.py` drives `AdaptiveConstraintManager`, which this bounty specifies as adjusting validation strictness based on threat level. Output: cryptographic validation certificates consumed as evidence by that bounty's `validation/integrity_checker.py` and `audit_trail.py`. |
+| `BOUNTY_DAXDA_PENETRATION.md` (MMPIBench) | OPTIONAL / FUTURE | Alignment scores and penetration-depth metrics are not required as Cl(16,4) constraint dimensions by this bounty. Anticipated as a Level 1 sub-bounty only. |
+
+REQUIRED means this bounty is not complete without the relationship. OPTIONAL / FUTURE means the capability is anticipated but explicitly out of scope here.
+
 ## 📋 Required Deliverables
 
 1. **Source Code**: Complete implementation of the Cl(16,4) engine in Python 3.11+
