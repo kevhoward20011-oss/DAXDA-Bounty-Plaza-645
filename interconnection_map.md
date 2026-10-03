@@ -49,9 +49,17 @@ The five DAXDA bounties create a recursive governance framework where each subsy
 
 ## Submission Requirements Compliance
 
-- **Validation Script**: `validation/validate_bounties.py` - Provides structural and content validation
+- **Validation Script**: `validation/validate_bounties.py` - verifies filename pattern, minimum length, section-structure fidelity, required metadata, recursive depth, technical specificity, submission requirements, and archive presence. The current run reports 37 of 37 graded checks passing (exit code 0), with the archive requirement reported as a warning; `--strict-archive` reports it as a failure. See `README.md` for the full itemised results.
 - **Interconnection Map**: This document - Shows system relationships and dependencies
-- **Submission Package**: Archive format containing all deliverables
+- **Submission Package**: Required as a compressed archive (`BOUNTY_DAXDA_META_RECURSIVE.md` Required Deliverables, item 4). No archive is currently present in the package root.
+
+### Verification status of the relationships above
+
+The dependency statements in this document are a design intent, not a verified
+result. `validation/validate_bounties.py` reports that none of the five core
+bounty documents names another by filename (0/4 cross-references each), so the
+"Dependencies" and "Integrates With" entries below have not been confirmed
+against the documents and should be read as intended architecture.
 
 ## Integration Points
 

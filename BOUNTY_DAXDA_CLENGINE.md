@@ -130,7 +130,7 @@ The Cl(16,4) space must satisfy:
 4. **Code Quality (10%)**: Readability, maintainability, and documentation
 5. **Testing (5%)**: Comprehensive test coverage and validation
 
-## 🔒 Constraints
+## 🔒 Constraints & Requirements
 
 - Must use Python 3.11 or later
 - Must be compatible with existing DAXDA Python dependencies
@@ -146,6 +146,13 @@ Successful completion of this bounty will enable the creation of sub-bounties fo
 - Quantum-accelerated combinatorial validation
 - Distributed Cl(n,k) spaces across multiple nodes
 - Formal verification of combinatorial properties using theorem provers
+
+## 🎯 Target Audience
+
+This bounty is intended for:
+- Senior Python developers with experience in governance engines and validation systems
+- Theoretical computer scientists with combinatorial and geometric computation backgrounds
+- Performance engineers familiar with high-dimensional constraint satisfaction
 
 ## 📝 Submission Format
 
@@ -167,9 +174,13 @@ Submit a GitHub pull request to the DAXDA repository with:
 
 Same as meta-bounty: DAXDA Opire Singularity Council
 
-## 📞 Contact
+## 📞 Contact & Questions
 
 For questions, open an issue with tag `[bounty-cl16-4]`
+
+## 📜 License & Rights
+
+By submitting to this bounty, you grant the DAXDA project a perpetual, non-exclusive license to use, modify, and redistribute your submitted work. You retain full ownership and credit for your work. Licensing requirements are stated in the Constraints & Requirements section above.
 
 ---
 

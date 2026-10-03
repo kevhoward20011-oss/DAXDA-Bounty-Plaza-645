@@ -168,7 +168,7 @@ daxda_guard/containment/
 4. **Performance (10%)**: Meeting all performance benchmarks
 5. **Code Quality (10%)**: Readability, maintainability, documentation
 
-## 🔒 Constraints
+## 🔒 Constraints & Requirements
 
 - Must use Python 3.11 or later
 - Must integrate with existing `daxda_guard/soc_alerter.py`
@@ -187,6 +187,13 @@ Successful completion of this bounty will enable the creation of sub-bounties fo
 - Formal verification of containment properties
 - Self-healing containment systems
 - Cross-domain containment validation
+
+## 🎯 Target Audience
+
+This bounty is intended for:
+- Security researchers specializing in AGI containment and escape testing
+- Senior Python developers with experience in governance engines and validation systems
+- Security operations engineers familiar with SOC alerting and real-time monitoring
 
 ## 📝 Submission Format
 
@@ -209,9 +216,13 @@ Submit a GitHub pull request to the DAXDA repository with:
 
 Same as meta-bounty: DAXDA Opire Singularity Council
 
-## 📞 Contact
+## 📞 Contact & Questions
 
 For questions, open an issue with tag `[bounty-containment]`
+
+## 📜 License & Rights
+
+By submitting to this bounty, you grant the DAXDA project a perpetual, non-exclusive license to use, modify, and redistribute your submitted work. You retain full ownership and credit for your work. Licensing requirements are stated in the Constraints & Requirements section above.
 
 ---
 

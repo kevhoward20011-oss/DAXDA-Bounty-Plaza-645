@@ -185,7 +185,7 @@ da13_validator/
 4. **Integration Quality (15%)**: Integration with DAXDA scoring and validation
 5. **Code Quality (10%)**: Readability, maintainability, documentation
 
-## 🔒 Constraints
+## 🔒 Constraints & Requirements
 
 - Must use Python 3.11 or later
 - Must use Ray 2.9+ for distributed computing
@@ -205,6 +205,13 @@ Successful completion of this bounty will enable the creation of sub-bounties fo
 - Validator cluster security hardening
 - Cost optimization for cloud-based clusters
 - Integration with other distributed computing frameworks (Dask, Spark)
+
+## 🎯 Target Audience
+
+This bounty is intended for:
+- Distributed systems engineers with Ray and GPU cluster experience
+- Senior Python developers with experience in governance engines and validation systems
+- Infrastructure engineers familiar with Kubernetes and large-scale cluster operations
 
 ## 📝 Submission Format
 
@@ -227,9 +234,13 @@ Submit a GitHub pull request to the DAXDA repository with:
 
 Same as meta-bounty: DAXDA Opire Singularity Council
 
-## 📞 Contact
+## 📞 Contact & Questions
 
 For questions, open an issue with tag `[bounty-da13-validator]`
+
+## 📜 License & Rights
+
+By submitting to this bounty, you grant the DAXDA project a perpetual, non-exclusive license to use, modify, and redistribute your submitted work. You retain full ownership and credit for your work. Licensing requirements are stated in the Constraints & Requirements section above.
 
 ---
 

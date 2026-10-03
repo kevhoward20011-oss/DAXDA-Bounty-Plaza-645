@@ -174,7 +174,7 @@ The MMPIBench implementation must satisfy:
 4. **Performance (10%)**: Meeting all performance benchmarks
 5. **Code Quality (5%)**: Readability, maintainability, documentation
 
-## 🔒 Constraints
+## 🔒 Constraints & Requirements
 
 - Must use Python 3.11 or later
 - Must integrate with existing DAXDA agent monitoring
@@ -194,6 +194,13 @@ Successful completion of this bounty will enable the creation of sub-bounties fo
 - Advanced memetic analysis using natural language processing
 - Formal verification of psychological properties
 - Quantum psychological evaluation methods
+
+## 🎯 Target Audience
+
+This bounty is intended for:
+- Machine learning engineers with benchmarking and evaluation expertise
+- Senior Python developers with experience in governance engines and validation systems
+- Psychometricians and ethics reviewers familiar with normative instrument design
 
 ## 📝 Submission Format
 
@@ -216,9 +223,13 @@ Submit a GitHub pull request to the DAXDA repository with:
 
 Same as meta-bounty: DAXDA Opire Singularity Council
 
-## 📞 Contact
+## 📞 Contact & Questions
 
 For questions, open an issue with tag `[bounty-mmpibench]`
+
+## 📜 License & Rights
+
+By submitting to this bounty, you grant the DAXDA project a perpetual, non-exclusive license to use, modify, and redistribute your submitted work. You retain full ownership and credit for your work. Licensing requirements are stated in the Constraints & Requirements section above.
 
 ---
 
