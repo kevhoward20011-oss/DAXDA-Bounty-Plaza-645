@@ -12,7 +12,7 @@ The five DAXDA bounties create a recursive governance framework where each subsy
 ### 1. Cl(16,4) Hypercombinatorial Governance Engine
 - **Purpose**: Combinatorial validation system operating in 16-dimensional hypervolume space
 - **Location**: `BOUNTY_DAXDA_CLENGINE.md`
-- **Dependencies**: Chrono-Synchronicity (REQUIRED, bidirectional temporal integration), DA13 cluster (REQUIRED, execution substrate), Containment (REQUIRED, threat level in / certificates out), MMPIBench (OPTIONAL)
+- **Dependencies**: Chrono-Synchronicity (REQUIRED, bidirectional temporal integration), Containment (REQUIRED, threat level in / certificates out), DA13 cluster (OPTIONAL — a 1,820-point Cl(16,4) space is validated in-process, so cluster execution is not a completion requirement), MMPIBench (OPTIONAL)
 - **Outputs**: Validation certificates with cryptographic proofs, adaptive constraint satisfaction
 
 ### 2. Anomalous Containment Wing
@@ -24,7 +24,7 @@ The five DAXDA bounties create a recursive governance framework where each subsy
 ### 3. DA13 Distributed GPU Validator Cluster
 - **Purpose**: High-performance distributed computing system for massive parallel validation
 - **Location**: `BOUNTY_DAXDA_VALIDATOR.md`
-- **Dependencies**: Cl(16,4) engine (REQUIRED, primary validation workload — this is the only REQUIRED peer). Chrono-Synchronicity, Containment and MMPIBench are all OPTIONAL; the bounty's stated latency budgets are single-process, so no peer is required as a cluster payload
+- **Dependencies**: Cl(16,4) engine (OPTIONAL — this bounty does not require cluster execution; the reciprocal direction is declared by that bounty, which needs this cluster as its primary payload). Chrono-Synchronicity, Containment and MMPIBench are also OPTIONAL
 - **Outputs**: Linear scalability up to 1024 GPUs, sub-second validation latency, fault recovery
 
 ### 4. Chrono-Synchronicity Mapping System
@@ -43,19 +43,19 @@ The five DAXDA bounties create a recursive governance framework where each subsy
 
 | System | Validates | Integrates With (declared status) | Enables Sub-Bounties |
 |--------|-----------|----------------------------------|---------------------|
-| **Cl(16,4)** | Agent decisions | Chrono-Synchronicity (REQ), DA13 (REQ), Containment (REQ), MMPIBench (OPT) | Higher-dimensional spaces, quantum validation |
+| **Cl(16,4)** | Agent decisions | Chrono-Synchronicity (REQ), Containment (REQ), DA13 (OPT), MMPIBench (OPT) | Higher-dimensional spaces, quantum validation |
 | **Containment** | Escape scenarios | Cl(16,4) (REQ), Chrono-Synchronicity (REQ, 2 categories), DA13 (OPT), MMPIBench (OPT) | Adversarial generation, quantum resistance |
-| **DA13 Validator** | Governance decisions | Cl(16,4) (REQ), all others OPT | Multi-cloud deployment, heterogeneous GPU support |
+| **DA13 Validator** | Governance decisions | Cl(16,4) (REQ, as its primary payload), all others OPT | Multi-cloud deployment, heterogeneous GPU support |
 | **Chrono-Synchronicity** | Temporal relationships | Cl(16,4) (REQ), Containment (REQ), MMPIBench (OPT), DA13 (OPT) | Quantum validation, real-time prediction |
 | **MMPIBench** | Psychological profiles | Containment (REQ), all others OPT | Cross-cultural validation, dynamic scales |
 
-Required-pair count: 9 directed declarations across 5 documents. Every document declares all four peers, distinguishing REQUIRED from OPTIONAL rather than asserting undifferentiated mutual integration.
+Required-pair count: 8 directed REQUIRED declarations across 5 documents. Every document declares all four peers, distinguishing REQUIRED from OPTIONAL rather than asserting undifferentiated mutual integration. The dependency is deliberately asymmetric between Cl(16,4) and the DA13 cluster: the cluster requires the engine as its payload, while the engine does not require the cluster.
 
 ## Submission Requirements Compliance
 
-- **Validation Script**: `validation/validate_bounties.py` - verifies filename pattern, minimum length, section-structure fidelity, required metadata, recursive depth, technical specificity, submission requirements, and archive presence. The current run reports 37 of 37 graded checks passing (exit code 0), with the archive requirement reported as a warning; `--strict-archive` reports it as a failure. See `README.md` for the full itemised results.
+- **Validation Script**: `validation/validate_bounties.py` - verifies filename pattern, minimum length, section-structure fidelity, required metadata, recursive depth, technical specificity, submission requirements, and archive presence. The current run reports 38 of 38 graded checks passing with exit code 0, both in normal mode and under `--strict-archive`. See `README.md` for the full itemised results.
 - **Interconnection Map**: This document - Shows system relationships and dependencies
-- **Submission Package**: Required as a compressed archive (`BOUNTY_DAXDA_META_RECURSIVE.md` Required Deliverables, item 4). No archive is currently present in the package root.
+- **Submission Package**: Present as `daxda-meta-bounty-submission.zip` in the package root, containing the five bounties, the validation script, this map, and the README (`BOUNTY_DAXDA_META_RECURSIVE.md` Required Deliverables, item 4).
 
 ### Verification status of the relationships above
 
@@ -67,9 +67,9 @@ Earlier revisions of this document asserted dependencies that the bounty documen
 
 ## Integration Points
 
-1. **Primary Integration Hub**: Cl(16,4) Engine - Central combinatorial validation space; declares 3 REQUIRED peers, the most of any subsystem
+1. **Primary Integration Hub**: Cl(16,4) Engine - Central combinatorial validation space; declares 2 REQUIRED peers, the most of any subsystem
 2. **Security Layer**: Containment - Anomaly detection and escape prevention; supplies threat level into the Cl(16,4) constraint manager and consumes certificates back
-3. **Scalable Validation**: DA13 - Distributed GPU computing; required only by the Cl(16,4) engine, optional for the other three
+3. **Scalable Validation**: DA13 - Distributed GPU computing; declares the Cl(16,4) engine as its required payload, while the engine treats cluster execution as optional
 4. **Temporal Layer**: Synchronicity - Temporal relationship and causality mapping; bidirectional with Cl(16,4), and the temporal oracle for two Containment escape categories
 5. **Psychological Layer**: MMPIBench - Behavioral and alignment evaluation; required only by Containment
 

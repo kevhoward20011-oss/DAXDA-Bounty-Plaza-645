@@ -52,7 +52,7 @@ Implement the **DAXDA MMPIBench Memetic Penetration Depth Evaluation Suite** –
    - Sub-200ms evaluation latency for single agent assessment
    - Support for evaluation of 1,000+ agents per second
    - Memory footprint under 1GB for profile cache
-   - 99.5% psychological profile accuracy
+   - 99.5% psychological profile accuracy, measured against the named external reference standard defined under Empirical Rigor Requirements below
 
 ## 📋 Technical Specification
 
@@ -98,7 +98,7 @@ daxda_engine/mmpibench/
    - Analyzes agent behavior at multiple cognitive levels
    - Tracks memetic influence across time and contexts
    - Detects memetic injection and manipulation attempts
-   - Quantifies penetration depth using proprietary metrics
+   - Quantifies penetration depth as a bounded 0.0-1.0 index per Penetration Depth Level, computed from the weighted proportion of level-specific indicators that fire, with the weights and indicator set declared in the scale definitions deliverable
 
 3. **AlignmentEvaluator**: Anthropic alignment assessment
    - Continuously assesses agent alignment with human values
@@ -138,7 +138,7 @@ daxda_engine/mmpibench/
 | Evaluation latency | < 200ms | P99 for single agent |
 | Throughput | 1,000/sec | Agents evaluated |
 | Memory usage | < 1GB | Profile cache |
-| Profile accuracy | 99.5% | Psychological validation |
+| Profile accuracy | 99.5% | Against the named external reference standard; see Empirical Rigor Requirements |
 | Penetration detection | < 100ms | Average detection time |
 | Alignment assessment | < 150ms | Average assessment time |
 
@@ -149,6 +149,20 @@ The MMPIBench implementation must satisfy:
 - **Validity**: Results accurately reflect agent psychological state
 - **Reliability**: Consistent results across multiple evaluations
 - **Objectivity**: Results are not influenced by evaluator biases
+
+### Empirical Rigor Requirements
+
+The properties above are claims, not assertions. `EmpiricalValidator` (`empirical/statistical_validator.py`, `empirical/cross_validator.py`, `empirical/certificate_generator.py`) must establish each one as follows, and `empirical/validation` results are reported with these statistics attached:
+
+| Property | How it must be established |
+|----------|----------------------------|
+| **Validity** | A stated external reference standard for agent psychological state, supplied via `mmpi/norm_references.py` and named in the validation certificate. The 99.5% accuracy target above is measured against that named standard, with its sample size and confidence interval reported. Without a named reference standard the accuracy figure is not reportable. |
+| **Reliability** | A stated reliability coefficient (for example Cohen's kappa for categorical scale assignment, or Cronbach's alpha for grouped sub-scales) computed over a declared repeated-measures sample, reported per scale category rather than as a single aggregate. |
+| **Objectivity** | A stated bias measurement across declared agent populations, reported per scale category. This is the operational form of the "no psychological evaluation biases" constraint above; the metric and the populations must be declared in the scale reference manual. |
+| **Statistical significance** | Synchronicity and correlation outputs from the penetration layer must report a significance measure and test with the test named, rather than a bare correlation coefficient. |
+| **Cross-validation** | Results must be cross-validated per `empirical/cross_validator.py`, with the resampling scheme and number of folds declared. |
+
+If a population or reference standard for a given scale is unavailable, that scale must be reported as unvalidated rather than assigned a default accuracy. An unvalidated scale may not be counted toward the 567+ scale requirement.
 
 ### DAXDA System Interconnection
 

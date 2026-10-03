@@ -98,13 +98,21 @@ The Cl(16,4) space must satisfy:
 - **Efficiency**: Validation operations scale as O(log n) where n is the combinatorial dimension
 - **Determinism**: Same input always produces same validation result
 
+### Space Cardinality
+
+The Cl(n,k) space has exactly C(n,k) points, so the Cl(16,4) space contains **C(16,4) = 1,820 points**. This bounds what the performance targets below can mean and is stated here so they can be evaluated:
+
+- The space itself is small. Sub-100ms single-validation latency and the memory bound are comfortably attainable in-process; the memory figure is a ceiling for the resident process, not a consequence of space size.
+- The 10,000 validations/sec throughput target applies to **repeated validation of agent decisions**, not to distinct points in the space. A space of 1,820 points does not by itself generate that load; the load comes from the rate of agent decisions presented to HyperValidator.
+- Growth beyond this scale is out of scope for this bounty. C(32,8) = 10,518,300 points and is named as a sub-bounty in Recursive Expansion below, not as a requirement here.
+
 ### Performance Benchmarks
 
 | Metric | Target | Measurement Method |
 |--------|--------|---------------------|
 | Single validation latency | < 100ms | 99th percentile |
-| Throughput | 10,000 validations/sec | Batch testing |
-| Memory usage | < 2GB | Full space loaded |
+| Throughput | 10,000 validations/sec | Batch testing over agent decisions |
+| Memory usage | < 2GB | Full space loaded, plus certificate and constraint history |
 | Constraint satisfaction | < 50ms | Average case |
 | Parallel efficiency | > 80% | 8-core system |
 
@@ -115,7 +123,7 @@ This subsystem is one of the five Level 1 DAXDA subsystems defined in the meta-b
 | Related bounty | Status | Relationship |
 |----------------|--------|--------------|
 | `BOUNTY_DAXDA_SYNCHRONICITY.md` (Chrono-Synchronicity) | REQUIRED | Implemented by `integration/cl16_4_integration.py`, already declared in the architecture above. Bidirectional: this engine supplies point-in-time Cl(16,4) coordinates and constraint satisfaction; Chrono-Synchronicity supplies temporal consistency and paradox verdicts for those coordinates. |
-| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | REQUIRED | Execution substrate. HyperValidator defines the unit of work and emits signed certificates; DA13 `ValidationWorker` and `ResultAggregator` execute that work across the cluster to reach the 10,000 validations/sec and sub-second latency targets stated above. Input: validation job payload plus GPU cluster. Output: validation certificates. |
+| `BOUNTY_DAXDA_VALIDATOR.md` (DA13 Distributed GPU Validator Cluster) | OPTIONAL | Execution substrate, not a completion requirement. As stated above, the Cl(16,4) space holds 1,820 points and in-process validation meets the latency and memory targets, so this engine does not require cluster execution. Where sustained decision volume exceeds a single node, `ValidationWorker` and `ResultAggregator` can execute HyperValidator as the unit of work. Input: validation job payload plus GPU cluster. Output: validation certificates. The reciprocal direction differs: that bounty declares this engine as its primary payload. |
 | `BOUNTY_DAXDA_CONTAINMENT.md` (Anomalous Containment Wing) | REQUIRED | Input: threat level produced by `ContainmentMonitor` / `anomaly_detector.py` drives `AdaptiveConstraintManager`, which this bounty specifies as adjusting validation strictness based on threat level. Output: cryptographic validation certificates consumed as evidence by that bounty's `validation/integrity_checker.py` and `audit_trail.py`. |
 | `BOUNTY_DAXDA_PENETRATION.md` (MMPIBench) | OPTIONAL / FUTURE | Alignment scores and penetration-depth metrics are not required as Cl(16,4) constraint dimensions by this bounty. Anticipated as a Level 1 sub-bounty only. |
 
